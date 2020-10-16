@@ -1,25 +1,28 @@
 <?php include("includes/headers.php");?>
-<form action='/hinfo/in.php' method='POST'>
-	login<br>
-	<input name = 'login'><br>
-	password<br>
-	<input name = 'pass' type='password'>
-	<input type='submit' value='login'>
-	<input type='submit' value='signin'>
+<div class="container mlogin">
+<div id="login">
+<h1>Login</h1>
+<form action='/hinfo/in.php' id="loginform" name="loginform" method='POST'>
+	<p><label for="user_login">user name<br>
+	<input class="input" name = 'login' type="text"></label></p>
+	<p><label for="user_pass">password<br>
+	<input name = 'pass' type='password'></label></p>
+	<p class="submit"><input class="button" type='submit' value='Log in'></p>
+	<p class="regtext">Not registered yet? <a href= "reg.php">registration</a>!</p>
 </form>
+</div>
+</div>
 
 <?php 
+require("constants.php"); //no use yet
+
 $user = null;
 if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
-	$sql_params = array("{$_REQUEST['login']}","{$_REQUEST['pass']}");
 	
+	$sql_params = array("{$_REQUEST['login']}","{$_REQUEST['pass']}");	
 	$dbconn = pg_connect("dbname=exempters user=postgres password=postgres");
-	$query = '
-	select 	login
-	from userstest 
-	where login = $1 
-	and password = $2 
-	limit 1';
+	$query = 'select login from userstest where login = $1 and password = $2 limit 1';
+	
 	$result = pg_query_params($dbconn, $query, $sql_params);
 	//echo print_r($result);
 	//check if result contain something
@@ -45,5 +48,4 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
 	}
 
 ?>
-<br><a href= "reg.php">Sign in</a>
 <?php include("includes/footers.php");?>
