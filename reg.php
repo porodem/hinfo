@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>HINFO</title>
-<meta charset='utf-8'>
-</head>
-<body>
+<?php include("includes/headers.php");?>
 <form action='/hinfo/in.php' method='POST'>
 	login<br>
 	<input name = 'login'><br>
@@ -19,5 +13,4 @@
 
 ?>
 <br>Already have account? Then <a href= "in.php">login</a>
-</body>
-</html>
+<?php include("includes/footers.php");?>

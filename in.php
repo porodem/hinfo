@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>HINFO</title>
-<meta charset='utf-8'>
-</head>
-<body>
+<?php include("includes/headers.php");?>
 <form action='/hinfo/in.php' method='POST'>
 	login<br>
 	<input name = 'login'><br>
@@ -52,5 +46,4 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
 
 ?>
 <br><a href= "reg.php">Sign in</a>
-</body>
-</html>
+<?php include("includes/footers.php");?>
