@@ -8,6 +8,9 @@ https://www.internet-technologies.ru/articles/sistema-registracii-polzovateley-s
 
 PHP code modyfied for using PostgreSQL DB.
 
+DB shema:
+create table userstest(id serial primary key, login text, password text, email text, is_admin boolean, access_lvl int4);
+
 03.11
 - logout now work
 - read html files from /pages folder and show it only for logined users

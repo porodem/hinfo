@@ -5,6 +5,8 @@
 <form action='/hinfo/reg.php' id="registerform" name="registerform" method='POST'>
 	<p><label for="user_login">login<br>
 	<input class="input" id="username" name = 'login'></label></p>
+	<p><label for="user_email">email<br>
+	<input class="input" id="email" name = 'email'></label></p>
 	<p><label for="user_pass">password<br>
 	<input class="input" id="pass" name = 'pass' type='password'></label></p>
 	<p class="submit"><input class="button" id="register" name="register" type="submit" value="sign in"></p>
@@ -17,8 +19,11 @@
 //require("constants.php"); //no use yet
 
 $user = null;
-if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
+if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass']) && !empty($_REQUEST['email'])) {
 	
+	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+		$message = 'invalid email!';
+	} else {
 	$sql_params = array("{$_REQUEST['login']}","{$_REQUEST['pass']}");	
 	$dbconn = pg_connect("dbname=exempters user=postgres password=postgres");
 	$query = 'select login from userstest where login = $1 and password = $2 limit 1';
@@ -38,6 +43,7 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
 		}
 
 	} else { $message = 'user already exists'; }
+	}
 } else {
 	$message = 'All fields are required!';
 }
