@@ -18,6 +18,17 @@
 <?php 
 //require("constants.php"); //no use yet
 
+function send_mail() {
+	//send email on succesfuly register
+			$body_msg = "you successfuly registered on HINFO 
+			\nlogin: " . $_POST['login'] .
+			"\npassword: " . $_POST['pass'] .
+			"\n\n для полного доступа к ресурсам дождитесь письма от администратора.";
+			mail($_POST['email'],"Registration", $body_msg);
+			//send mail to admin
+			mail('adolgopolov@ro-nso.ru','hinfo user', $body_msg);
+}
+
 $user = null;
 if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass']) && !empty($_REQUEST['email'])) {
 	
@@ -37,6 +48,7 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass']) && !empty($_REQUEST['
 		$result = pg_query_params($dbconn, $query_insert, $sql_params);
 		
 		if($result) {
+			send_mail();
 			$message = 'user succesfuly created';
 		} else {
 			$massage = 'error inserting new user in DB';

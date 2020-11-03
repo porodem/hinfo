@@ -11,6 +11,17 @@ PHP code modyfied for using PostgreSQL DB.
 DB shema:
 create table userstest(id serial primary key, login text, password text, email text, is_admin boolean, access_lvl int4);
 
+03.11-3	setup sending email from PHP (detailed guide on porodem google drive "php Hinfo")
+	1. have sendmail app on linux server where PHP work
+	2. edit php.ini file of section [mail function]
+	3. use PHP function mail 
+	
+	--- TO DO: add on login if user have full access_lvl to read all content
+
+03.11-2
+-email field on registration 
+https://www.w3schools.com/php/php_form_url_email.asp - validation code example
+
 03.11
 - logout now work
 - read html files from /pages folder and show it only for logined users
