@@ -14,7 +14,13 @@
 </div>
 
 <?php 
+session_start();
+
 require("constants.php"); //no use yet
+
+if(isset($_SESSION['auth'])) {
+	header("Location: intro.php");
+}
 
 $user = null;
 if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
@@ -23,7 +29,10 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
 	$dbconn = pg_connect("dbname=exempters user=postgres password=postgres");
 	$query = 'select login from userstest where login = $1 and password = $2 limit 1';
 	
-	$result = pg_query_params($dbconn, $query, $sql_params);
+	$result = pg_prepare($dbconn, "my_query", $query);
+	
+	$result = pg_execute($dbconn, "my_query", $sql_params);
+	//$result = pg_query_params($dbconn, $query, $sql_params);
 	//echo print_r($result);
 	//check if result contain something
 	if(pg_num_rows($result) > 0) {
@@ -39,12 +48,14 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
 // add session
 	if(!empty($user)) {
 		//succesfull autorization
-		session_start();
+		
 		$_SESSION['auth'] = true;
 		//$_SESSION['id'] = $user['id'];
 		$_SESSION['login'] = $user->login;
+		header("Location: intro.php");
 	} else {
 		//action when wrong authentification
+		echo 'wrong authentification';
 	}
 
 ?>

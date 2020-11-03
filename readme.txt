@@ -8,6 +8,10 @@ https://www.internet-technologies.ru/articles/sistema-registracii-polzovateley-s
 
 PHP code modyfied for using PostgreSQL DB.
 
+03.11
+- logout now work
+- read html files from /pages folder and show it only for logined users
+
 16.10-1
 -added few lines of code about session
 -new files 'reg.php','intro.php' for registration and welcome page.
