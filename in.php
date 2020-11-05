@@ -27,7 +27,7 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
 	
 	$sql_params = array("{$_REQUEST['login']}","{$_REQUEST['pass']}");	
 	$dbconn = pg_connect("dbname=exempters user=postgres password=postgres");
-	$query = 'select login from userstest where login = $1 and password = $2 limit 1';
+	$query = 'select login, access_lvl from userstest where login = $1 and password = $2 limit 1';
 	
 	$result = pg_prepare($dbconn, "my_query", $query);
 	
@@ -52,6 +52,7 @@ if(!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
 		$_SESSION['auth'] = true;
 		//$_SESSION['id'] = $user['id'];
 		$_SESSION['login'] = $user->login;
+		$_SESSION['access_lvl'] = $user->access_lvl;
 		header("Location: intro.php");
 	} else {
 		//action when wrong authentification
