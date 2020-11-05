@@ -6,7 +6,9 @@ include("includes/headers.php");
 <div id="welcome">
 <h2>Welcome, <span> <?= $_SESSION['login'] ?> </span>!</h2>
 <p><a href='intro.php?notes=1'>БД Регистр - часто используемые поля</a>
-<p><a href="logout.php">logout</a> from site</p>
+<p><a href='intro.php?notes=2'>web приложение Льготники</a>
+<br><br>
+<p style="text-align:right"><a href="logout.php">logout</a> from site</p>
 </div>
 <?php
 function readTextFile($id) {
@@ -14,18 +16,20 @@ function readTextFile($id) {
 		case 1:
 		echo '<div style="width: 800px; margin: 20px auto ">' . file_get_contents("pages/RegisterDBpopularfields.html") . '</div>';
 		break;
+		case 2:
+		echo '<div style="width: 800px; margin: 20px auto ">' . file_get_contents("pages/Exemptersproject.html") . '</div>';
+		break;
 		default:
-		echo 'nothing';
+		echo '<div style="width: 180px; margin: 20px auto ">такой страницы нет</div>';;
 	}
 }
-if(isset($_GET['notes']) and $_SESSION['auth']) {
-if($_GET['notes'] == 1) {
-	readTextFile(1);
-} else {
-	echo 'shit!';
+//if user is not authorisated kick him to login page
+if(!$_SESSION['auth']) {
+	header("location: in.php");
 }
-} else {
-	header("location: in.php"); //TO DO mayb locate to new page with message of limited access, and link to registration
+//if any of notes is picked - show it
+if(isset($_GET['notes']) /*and $_SESSION['auth']*/) {
+	readTextFile($_GET['notes']);
 }
 
 ?>
